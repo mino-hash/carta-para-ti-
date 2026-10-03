@@ -1,0 +1,282 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una pregunta para ti ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #fff0f5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Corazones */
+.corazon {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    animation: subir 6s linear infinite;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes subir {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Carta */
+.carta {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255,255,255,0.95);
+    padding: 40px 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(150,50,90,0.25);
+    animation: aparecer 1s ease;
+    z-index: 2;
+}
+
+@keyframes aparecer {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+h1 {
+    color: #e91e63;
+    font-size: 32px;
+}
+
+p {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.botones {
+    margin-top: 30px;
+}
+
+button {
+    border: none;
+    padding: 14px 30px;
+    margin: 8px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#si {
+    background: #e91e63;
+    color: white;
+    box-shadow: 0 5px 15px rgba(233,30,99,0.3);
+}
+
+#si:hover {
+    transform: scale(1.1);
+}
+
+#no {
+    background: #eeeeee;
+    color: #555;
+}
+
+/* Pantalla final */
+.final {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ffb6d2, #ffe6ef);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    padding: 25px;
+}
+
+.final-contenido {
+    background: white;
+    padding: 45px 30px;
+    border-radius: 30px;
+    max-width: 550px;
+    box-shadow: 0 15px 50px rgba(150,50,90,0.3);
+    animation: zoom 0.8s ease;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.final h2 {
+    color: #e91e63;
+    font-size: 35px;
+}
+
+.final p {
+    font-size: 20px;
+}
+
+.corazon-grande {
+    font-size: 70px;
+    animation: latir 1s infinite;
+}
+
+@keyframes latir {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="carta">
+
+    <h1>💌 Tengo algo que preguntarte...</h1>
+
+    <p>
+        Desde hace un tiempo quería decirte algo,
+        pero no sabía cómo hacerlo...
+    </p>
+
+    <p>
+        Así que decidí preguntártelo de una manera
+        un poquito diferente. 🥰
+    </p>
+
+    <h2>¿Quieres ser mi novia? ❤️</h2>
+
+    <div class="botones">
+        <button id="si" onclick="aceptar()">Sí ❤️</button>
+        <button id="no" onmouseover="moverNo()" onclick="moverNo()">No 😭</button>
+    </div>
+
+</div>
+
+<!-- Pantalla después de decir Sí -->
+
+<div class="final" id="final">
+
+    <div class="final-contenido">
+
+        <div class="corazon-grande">❤️</div>
+
+        <h2>¡Sabía que dirías que sí! 🥰</h2>
+
+        <p>
+            Gracias por darme la oportunidad de compartir
+            momentos contigo. 💗
+        </p>
+
+        <p>
+            Prometo hacer que cada momento juntos
+            sea algo bonito para recordar. ✨
+        </p>
+
+        <p>
+            <strong>Me haces muy feliz. ❤️</strong>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+/* Botón NO */
+function moverNo() {
+
+    const boton = document.getElementById("no");
+
+    const x = Math.random() * 250 - 125;
+    const y = Math.random() * 150 - 75;
+
+    boton.style.transform =
+        `translate(${x}px, ${y}px)`;
+}
+
+/* Botón SÍ */
+function aceptar() {
+
+    document.getElementById("final").style.display = "flex";
+
+    crearCorazones();
+}
+
+/* Crear corazones */
+function crearCorazones() {
+
+    for (let i = 0; i < 30; i++) {
+
+        const corazon = document.createElement("div");
+
+        corazon.classList.add("corazon");
+
+        corazon.innerHTML =
+            ["❤️","💕","💗","💖","💘"][Math.floor(Math.random() * 5)];
+
+        corazon.style.left =
+            Math.random() * 100 + "vw";
+
+        corazon.style.animationDuration =
+            (4 + Math.random() * 4) + "s";
+
+        corazon.style.fontSize =
+            (15 + Math.random() * 30) + "px";
+
+        document.body.appendChild(corazon);
+
+    }
+}
+
+/* Corazones desde el inicio */
+crearCorazones();
+
+</script>
+
+</body>
+</html>
+```
